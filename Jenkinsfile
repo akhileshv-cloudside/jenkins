@@ -6,25 +6,25 @@ pipeline {
     stages {
         stage('Connect gke') {
             steps {
-                sh 'gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project akhilesh123'
+                sh 'gcloud container clusters get-credentials cluster-2 --zone us-central1-c --project akhilesh123'
             }
         }
         stage('Build Image') {
             steps {
                 git branch: 'main', url: 'https://github.com/akhileshv-cloudside/jenkins.git'
-                sh 'sudo docker build -t us-docker.pkg.dev/akhilesh123/nginx-svc:$tag .'
+                sh 'sudo docker build -t us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag'
             }
         }
         stage('Push Image') {
             steps {
-               sh 'gcloud auth configure-docker gcr.io -q'
+               sh 'gcloud auth configure-docker us-docker.pkg.dev -q'
                sh 'sudo docker images'
-               sh 'sudo docker push us-docker.pkg.dev/akhilesh123/nginx-svc:$tag'
+               sh 'sudo docker push us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag'
             }
         }
         stage('Image remove'){
             steps{
-                sh 'sudo docker rmi us-docker.pkg.dev/akhilesh123/nginx-svc:$tag'
+                sh 'sudo docker rmi us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag'
             }
         }
         stage("Set up Kustomize"){
@@ -36,8 +36,7 @@ pipeline {
         stage("Deploy Image to GKE cluster"){
             steps{
                 sh 'kubectl get nodes'
-                sh './kustomize edit set image 
-                gcr.io/PROJECT_ID/IMAGE:TAG=us-docker.pkg.dev/akhilesh123/nginx-svc:$tag'
+                sh './kustomize edit set image us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag'
                 sh './kustomize build . | kubectl apply -f -'
                 sleep 60
                 sh 'kubectl get services -o wide'
