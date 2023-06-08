@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                git branch: 'main', url: 'https://github.com/akhileshv-cloudside/Dockerfile'
+                git branch: 'main', url: 'https://github.com/akhileshv-cloudside/Jenkinsfile.git'
                 sh 'sudo docker build -t us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag'
             }
         }
