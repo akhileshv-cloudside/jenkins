@@ -38,8 +38,8 @@ pipeline {
                 sh 'kubectl get nodes'
                 sh './kustomize edit set image us-docker.pkg.dev/akhilesh123/nginx/img:$tag'
                 sh './kustomize build . | kubectl apply -f -'
-                sleep 60
                 sh 'kubectl get services -o wide'
+                sleep 60
             }
         }
     }
