@@ -19,7 +19,7 @@ pipeline {
             steps {
                sh 'gcloud auth configure-docker us-docker.pkg.dev -q'
                sh 'sudo docker images'
-               sh 'sudo docker push us-docker.pkg.dev/akhilesh123/nginx/img:$tag'
+               sh 'sudo docker push gcr.io/akhilesh123/nginx/img:$tag'
             }
         }
         stage('Image remove'){
