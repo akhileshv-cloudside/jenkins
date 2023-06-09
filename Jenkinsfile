@@ -27,5 +27,12 @@ pipeline {
                 sh 'sudo docker rmi us-docker.pkg.dev/akhilesh123/nginx/img:$tag'
             }
         }
+        stage("Set up Kustomize"){
+            steps{
+                sh 'curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64'
+                sh 'chmod u+x ./kustomize'
+            }
+        }
+
     }
 }
