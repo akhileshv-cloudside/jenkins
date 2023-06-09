@@ -12,14 +12,14 @@ pipeline {
         stage('Build Image') {
             steps {
                 git branch: 'main', url: 'https://github.com/akhileshv-cloudside/jenkins.git'
-                sh 'sudo docker build -t us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag .'
+                sh 'sudo docker build -t us-docker.pkg.dev/akhilesh123/nginx/img:$tag .'
             }
         }
         stage('Push Image') {
             steps {
                sh 'gcloud auth configure-docker us-docker.pkg.dev -q'
                sh 'sudo docker images'
-               sh 'sudo docker push us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag'
+               sh 'sudo docker push us-docker.pkg.dev/akhilesh123/nginx/img:$tag'
             }
         }
         stage('Image remove'){
