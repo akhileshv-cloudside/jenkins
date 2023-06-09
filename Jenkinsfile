@@ -12,7 +12,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 git branch: 'main', url: 'https://github.com/akhileshv-cloudside/jenkins.git'
-                sh 'sudo docker build -t us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag'
+                sh 'sudo docker build -t us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag .'
             }
         }
         stage('Push Image') {
