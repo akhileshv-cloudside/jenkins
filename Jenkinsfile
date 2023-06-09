@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Connect gke') {
             steps {
-                sh 'gcloud container clusters get-credentials cluster-2 --zone us-central1-c --project akhilesh123'
+                sh 'gcloud container clusters get-credentials ak-cluster --zone us-central1-c --project akhilesh123'
             }
         }
         stage('Build Image') {
