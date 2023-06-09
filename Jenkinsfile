@@ -22,5 +22,10 @@ pipeline {
                sh 'sudo docker push us-docker.pkg.dev/akhilesh123/nginx/img:$tag'
             }
         }
+        stage('Image remove'){
+            steps{
+                sh 'sudo docker rmi us-docker.pkg.dev/akhilesh123/nginx/img:$tag'
+            }
+        }
     }
 }
