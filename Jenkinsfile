@@ -19,7 +19,7 @@ pipeline {
             steps {
                sh 'sudo gcloud auth configure-docker us-docker.pkg.dev'
                sh 'sudo docker images'
-               sh 'sudo docker push us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag'
+               sh 'sudo docker push us-docker.pkg.dev/akhilesh123/nginx/img:$tag'
             }
         }
     }
