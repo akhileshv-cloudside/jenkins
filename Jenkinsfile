@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Push Image') {
             steps {
-               sh 'gcloud auth configure-docker us-docker.pkg.dev -q'
+               sh 'sudo gcloud auth configure-docker us-docker.pkg.dev'
                sh 'sudo docker images'
                sh 'sudo docker push us-docker.pkg.dev/akhilesh123/nginx/jenkins/img:$tag'
             }
